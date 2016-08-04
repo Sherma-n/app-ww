@@ -9747,7 +9747,8 @@ a.button {
   width: 100%;
   box-shadow: 2px 2px 1px #888888;
   border-radius: 0;
-  background-image: url(../img/sunnyback.png);
+  /*background-image: url(img/sunnyback.png);*/
+  background-color: rgba(200,200,200,0.7);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   padding: 5px;
