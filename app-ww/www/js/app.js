@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic',])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -32,7 +32,20 @@ angular.module('starter', ['ionic'])
     url: '/inside/housedetails',
     templateUrl: 'templates/housedetails.html',
     controller: 'InsideCtrl'
-  });
+  })
+  .state('inside.editHouse', {
+    url: '/inside/edit',
+    templateUrl: 'templates/edithouse.html',
+    controller: 'InsideCtrl'
+  })
+  .state('inside.editProfile', {
+    url: '/inside/editProfile',
+    templateUrl: 'templates/editprofile.html',
+    controller: 'InsideCtrl'
+  })
+
+
+  ;
 
   $urlRouterProvider.otherwise('/outside/login');
 })

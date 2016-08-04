@@ -1,0 +1,48 @@
+<ion-view title="Edit House" hide-nav-bar="true" id="page9" class=" ">
+    <ion-content padding="true" style="background: url(../img/weatherback.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+        <div class="spacer" style="width: 300px; height: 0px;"></div>
+        <h1 id="editHouse-heading9" style="color:#FFFFFF;" class=" EditHouseHeader Header">Edit House</h1>
+        <form id="editHouse-form13" class="list EditHouseForm">
+            <h3 id="editHouse-heading14" style="color:#FFFFFF;" class=" EditHouseAddress subHeader">23A Laguna Verde</h3>
+            <label class="item item-input EditHouseName pText inDivItem inputBox" id="editHouse-input13">
+                <input type="text" placeholder="Edit House Name">
+            </label>
+            <h3 id="editHouse-heading15" style="color:#FFFFFF;" class=" EditHouseLocation subHeader">Hong Kong, HK</h3>
+            <label class="item item-input EditHouseCountry pText inDivItem inputBox" id="editHouse-input14">
+                <input type="text" placeholder="Edit Country">
+            </label>
+            <label class="item item-input EditHouseLocation pText inDivItem inputBox" id="editHouse-input15">
+                <input type="text" placeholder="Edit location">
+            </label>
+            <h3 id="editHouse-heading16" style="color:#FFFFFF;" class=" EditHouseUsers subHeader">Home Users:</h3>
+            <div class="item item-body EditHouseUsers inDivItem" id="editHouse-list-item-container33">
+                <ion-list id="editHouse-list8" class=" ">
+                    <ion-item class="item-icon-right light  EditHouseUsers pText inDivItem" id="editHouse-list-item69">Sherman Yeh
+                        <i class="icon ion-ios-minus-outline"></i>
+                    </ion-item>
+                    <ion-item class="item-icon-right light  EditHouseUsers pText inDivItem" id="editHouse-list-item70">Stella Yu
+                        <i class="icon ion-ios-minus-outline"></i>
+                    </ion-item>
+                    <label class="item item-input newUserInput pText inDivItem inputBox" id="editHouse-input16" name="AddUser">
+                        <input type="text" placeholder="Add Existing User">
+                    </label>
+                </ion-list>
+            </div>
+            <h3 id="editHouse-heading17" style="color:#FFFFFF;" class=" EditHouseWindows subHeader">Windows:</h3>
+            <div class="item item-body windowInputform inDivItem" id="editHouse-list-item-container35">
+                <ion-list id="editHouse-list10" class=" ">
+                    <ion-item class="item-icon-right light  EditHouseWindow pText inDivItem" id="editHouse-list-item73">Living Room
+                        <i class="icon ion-ios-minus-outline"></i>
+                    </ion-item>
+                    <ion-item class="item-icon-right light  EditHouseWindow pText inDivItem" id="editHouse-list-item74">Master Bedroom
+                        <i class="icon ion-ios-minus-outline"></i>
+                    </ion-item>
+                    <label class="item item-input newWindowInput pText inDivItem inputBox" id="editHouse-input18" name="AddWindow">
+                        <input type="text" placeholder="Add New Window">
+                    </label>
+                </ion-list>
+            </div>
+            <a ui-sref="inside.userhome" id="editHouse-button11" class=" button button-positive  button-block icon ion-android-arrow-down editHouseSaveBtn Btn pText" ng-click="">Save Changes</a>
+        </form>
+    </ion-content>
+</ion-view>

@@ -59,7 +59,23 @@ angular.module('starter')
   $scope.gohousedetails = function() {
     console.log("what");
     $state.go('inside.details');
-  }
+  };
+
+  $scope.gohouseedit = function() {
+    console.log("who");
+    $state.go('inside.editHouse');
+  };
+
+  $scope.gohousehome = function() {
+    console.log("who");
+    $state.go('inside.userhome');
+  };
+
+  $scope.goedithome = function() {
+    console.log("when");
+    $state.go('inside.editProfile');
+  };
+
 })
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
@@ -72,3 +88,6 @@ angular.module('starter')
     });
   });
 });
+
+
+

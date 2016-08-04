@@ -9898,4 +9898,6 @@ a.button {
   border-radius: 0px;
   margin: 10px;
 }
-
+.barinside {
+  background-color: rgba(80,82,95,.85);
+}
