@@ -1,3 +1,24 @@
+<ion-view title="Login" hide-nav-bar="true" id="page5" class="loginPage">
+    <ion-content class="loginContent" padding="false" style="background: url(../img/weatherback.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
+      <img class="mainLogo" src="https://s32.postimg.org/ccxveagyd/Resources_Main_Logo.png">
+      <div class="item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Email" ng-model="user.name">
+        </label>
+      </div>
+      <div class="item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Password" ng-model="user.password">
+        </label>
+      </div>
+    <button class="button loginElement" ng-click="login()">
+      Login
+    </button>
+    <button class="button button-plain button-clear button-full" ui-sref="outside.register">Register now!</button>
+    </ion-content>
+</ion-view>
+
+<!--
 <ion-view title="Please sign in">
   <ion-content class="padding">
     <div class="list">
@@ -13,4 +34,4 @@
     </button>
     <button class="button button-positive button-clear button-full" ui-sref="outside.register">Register now!</button>
   </ion-content>
-</ion-view>
+</ion-view> -->

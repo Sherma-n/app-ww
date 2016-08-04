@@ -22,6 +22,16 @@ angular.module('starter', ['ionic'])
     url: '/inside',
     templateUrl: 'templates/inside.html',
     controller: 'InsideCtrl'
+  })
+  .state('inside.userhome', {
+    url: '/inside',
+    templateUrl: 'templates/userhome.html',
+    controller: 'InsideCtrl'
+  })
+  .state('inside.details', {
+    url: '/inside/housedetails',
+    templateUrl: 'templates/housedetails.html',
+    controller: 'InsideCtrl'
   });
 
   $urlRouterProvider.otherwise('/outside/login');

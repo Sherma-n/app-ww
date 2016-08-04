@@ -8,7 +8,7 @@ angular.module('starter')
 
   $scope.login = function() {
     AuthService.login($scope.user).then(function(msg) {
-      $state.go('inside');
+      $state.go('inside.userhome');
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
         title: 'Login failed!',
@@ -55,6 +55,11 @@ angular.module('starter')
     AuthService.logout();
     $state.go('outside.login');
   };
+
+  $scope.gohousedetails = function() {
+    console.log("what");
+    $state.go('inside.details');
+  }
 })
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
