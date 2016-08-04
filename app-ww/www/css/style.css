@@ -9802,7 +9802,7 @@ a.button {
 .editHouseDetail {
   float: right;
   max-width: 25%;
-  margin: 20px 0 0 0;
+  margin: 15px 0 10px 0;
   border-radius: 0; }
 
 .houseDetailsHeader {
@@ -9896,7 +9896,7 @@ a.button {
   font-weight: 400;
   font-family: "-apple-system", "HelveticaNeue-Light", "Roboto", "Segoe UI", sans-serif;
   border-radius: 0px;
-  margin: 10px;
+  margin: 15px 0 0 0;
 }
 .barinside {
   background-color: rgba(80,82,95,.85);

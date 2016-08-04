@@ -1,51 +1,102 @@
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var bower = require('bower');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var sh = require('shelljs');
+var gulp = require('gulp')
+var shell = require('gulp-shell')
 
-var paths = {
-  sass: ['./scss/**/*.scss']
-};
+var NodeWebkitBuilder = require('node-webkit-builder');
 
-gulp.task('default', ['sass']);
+// Run project
+gulp.task('run', shell.task([
+    'node node_modules/node-webkit-builder/bin/nwbuild -r ./'
+]));
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
-    .on('error', sass.logError)
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
-});
+gulp.task('build', function(cb) {
 
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
-});
+    // Read package.json
+    var package = require('./package.json')
 
-gulp.task('install', ['git-check'], function() {
-  return bower.commands.install()
-    .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+    // Find out which modules to include
+    var modules = []
+    if (!!package.dependencies) {
+        modules = Object.keys(package.dependencies)
+            .filter(function(m) {
+                return m != 'nodewebkit'
+            })
+            .map(function(m) {
+                return './node_modules/' + m + '/**/*'
+            });
+    }
+
+    // Which platforms should we build
+    var platforms = []
+    if (process.argv.indexOf('--win') > -1) platforms.push('win')
+    if (process.argv.indexOf('--mac') > -1) platforms.push('osx')
+    if (process.argv.indexOf('--linux32') > -1) platforms.push('linux32')
+    if (process.argv.indexOf('--linux64') > -1) platforms.push('linux64')
+
+    // Build for All platforms
+    if (process.argv.indexOf('--all') > -1) platforms = ['win', 'osx', 'linux32', 'linux64']
+
+    // If no platform where specified, determine current platform
+    if (!platforms.length) {
+        if (process.platform === 'darwin') platforms.push('osx')
+        else if (process.platform === 'win32') platforms.push('win')
+        else if (process.arch === 'ia32') platforms.push('linux32')
+        else if (process.arch === 'x64') platforms.push('linux64')
+    }
+
+    // Initialize NodeWebkitBuilder
+    var nw = new NodeWebkitBuilder({
+        files: ['./package.json', './app/**/*'].concat(modules),
+        cacheDir: './build/cache',
+        platforms: platforms,
+        macIcns: './app/assets/icons/play-icon.icns',
+        winIco: './app/assets/icons/play-icon.ico',
+        checkVersions: false
+    })
+
+    nw.on('log', function(msg) {
+        // Ignore 'Zipping... messages
+        if (msg.indexOf('Zipping') !== 0) console.log(msg);
     });
-});
 
-gulp.task('git-check', function(done) {
-  if (!sh.which('git')) {
-    console.log(
-      '  ' + gutil.colors.red('Git is not installed.'),
-      '\n  Git, the version control system, is required to download Ionic.',
-      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
-    );
-    process.exit(1);
-  }
-  done();
+    // Build!
+    nw.build(function(err) {
+
+        if (!!err) {
+            return console.error(err);
+        }
+
+        // Handle ffmpeg for Windows
+        if (platforms.indexOf('win') > -1) {
+            gulp.src('./deps/ffmpegsumo/win/*')
+                .pipe(gulp.dest(
+                    './build/' + package.name + '/win'
+                ));
+        }
+
+        // Handle ffmpeg for Mac
+        if (platforms.indexOf('osx') > -1) {
+            gulp.src('./deps/ffmpegsumo/osx/*')
+                .pipe(gulp.dest(
+                    './build/' + package.name + '/osx/node-webkit.app/Contents/Frameworks/node-webkit Framework.framework/Libraries'
+                ));
+        }
+
+        // Handle ffmpeg for Linux32
+        if (platforms.indexOf('linux32') > -1) {
+            gulp.src('./deps/ffmpegsumo/linux32/*')
+                .pipe(gulp.dest(
+                    './build/' + package.name + '/linux32'
+                ));
+        }
+
+        // Handle ffmpeg for Linux64
+        if (platforms.indexOf('linux64') > -1) {
+            gulp.src('./deps/ffmpegsumo/linux64/*')
+                .pipe(gulp.dest(
+                    './build/' + package.name + '/linux64'
+                ));
+        }
+
+        cb(err);
+    })
 });
