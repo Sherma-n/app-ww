@@ -1,6 +1,9 @@
-angular.module('starter', ['ionic',])
+var app = angular.module('starter', [
+  'ionic',
+  'btford.socket-io',
+    ])
 
-.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
   .state('outside', {
