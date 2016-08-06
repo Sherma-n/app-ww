@@ -43,7 +43,11 @@ angular.module('starter', ['ionic',])
     templateUrl: 'templates/editprofile.html',
     controller: 'InsideCtrl'
   })
-
+  .state('inside.chat', {
+    url: '/inside/chat',
+    templateUrl: 'templates/chat.html',
+    controller: 'InsideCtrl'
+  })
 
   ;
 

@@ -76,6 +76,11 @@ angular.module('starter')
     $state.go('inside.editProfile');
   };
 
+  $scope.gochat = function() {
+    console.log("when");
+    $state.go('inside.chat');
+  };
+
 })
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
