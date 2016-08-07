@@ -40,7 +40,7 @@ angular.module('starter')
   };
 })
 
-.controller('InsideCtrl', function($scope, AuthService, API_ENDPOINT, $http, $state, Socket) {
+app.controller('InsideCtrl', ['socket', function($scope, AuthService, API_ENDPOINT, $http, $state, socket) {
   $scope.destroySession = function() {
     AuthService.logout();
   };
@@ -81,7 +81,11 @@ angular.module('starter')
     $state.go('inside.chat');
   };
 
-})
+}])
+
+// app.controller('socketCtrl', ['$scope', 'socket' function($scope, socket) {
+
+// }])
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
   $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {
