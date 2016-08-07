@@ -40,7 +40,7 @@ angular.module('starter')
   };
 })
 
-.controller('InsideCtrl', function($scope, AuthService, API_ENDPOINT, $http, $state) {
+.controller('InsideCtrl', function($scope, AuthService, API_ENDPOINT, $http, $state, Socket) {
   $scope.destroySession = function() {
     AuthService.logout();
   };

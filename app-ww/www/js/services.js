@@ -82,6 +82,10 @@ angular.module('starter')
   };
 })
 
+.factory('Socket', function (socketFactory) {
+  return socketFactory();
+})
+
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 });
