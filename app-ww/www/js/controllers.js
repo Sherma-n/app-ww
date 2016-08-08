@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('LoginCtrl', function($scope, AuthService, $ionicPopup, $state) {
+.controller('LoginCtrl', ['socket', function($scope, AuthService, $ionicPopup, $state) {
   $scope.user = {
     name: '',
     password: ''
@@ -16,7 +16,7 @@ angular.module('starter')
       });
     });
   };
-})
+}])
 
 .controller('RegisterCtrl', function($scope, AuthService, $ionicPopup, $state) {
   $scope.user = {
@@ -83,7 +83,7 @@ app.controller('InsideCtrl', ['socket', function($scope, AuthService, API_ENDPOI
 
 }])
 
-// app.controller('socketCtrl', ['$scope', 'socket' function($scope, socket) {
+// app.controller('socketCtrl', function($scope, socket) {
 
 // }])
 

@@ -21,7 +21,25 @@
   <script>
 
       // Basic Browser Chat
+      // Basic Browser Chat
+      jQuery(function ($) {
+          var socket = io.connect();
+          var $messageForm = $('#send-message');
+          var $messageBox  = $('#message');
+          var $chat = $('#chat');
 
+          $messageForm.submit(function(e) {
+            e.preventDefault();
+            socket.emit('send message', $messageBox.val());
+            console.log($messageBox.val());
+          });
+
+          socket.on('new message', function (data) {
+            $chat.append(data + "</br>");
+            $messageBox.val('');
+            console.log('new message received')
+          });
+      });
 
   </script>
 </body>
