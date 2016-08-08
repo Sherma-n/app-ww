@@ -84,8 +84,8 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
   };
 
   $scope.gohousehome = function() {
-    console.log("who");
     $state.go('inside.userhome');
+
   };
 
   $scope.goedithome = function() {
@@ -107,9 +107,23 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
                                 user: UserFactory
                               }
     )};
+
+    $scope.housereturn = function (data) {
+      user = data;
+      console.log();
+    }
+
+
     socket.on('houseAdded', function (data) {
       console.log(data);
     });
+    socket.on('loadhouses', function (data) {
+      $scope.gohousehome(data);
+      console.log(data);
+      $scope.housereturn(data);
+    });
+
+
 
   }])
 

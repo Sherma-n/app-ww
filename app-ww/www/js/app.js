@@ -23,6 +23,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('inside', {
     url: '/inside',
+    abstract: true,
     templateUrl: 'templates/inside.html',
     controller: 'InsideCtrl'
   })
