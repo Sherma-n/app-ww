@@ -42,7 +42,14 @@ angular.module('starter')
 })
 
 app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", "$state", "socket", "UserFactory", function($scope, AuthService, API_ENDPOINT, $http, $state, socket, UserFactory) {
-  console.log("InsideCtrl");
+  $scope.house = {
+    name: '',
+    country: '',
+    location: '',
+  };
+  house = $scope.house;
+
+
 
   $scope.$watch(function(){
     return UserFactory;
@@ -87,10 +94,26 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
   };
 
   $scope.gochat = function() {
-    console.log("when");
+    console.log("gonetochat");
     $state.go('inside.chat');
   };
-}])
+
+  //saving a new house
+  $scope.savehouse = function (data) {
+    $state.go('inside.userhome');
+    console.log(UserFactory);
+    socket.emit('addedHouse', {
+                                house,
+                                user: UserFactory
+                              }
+    )};
+    socket.on('houseAdded', function (data) {
+      console.log(data);
+    });
+
+  }])
+
+
 
 // app.controller('socketCtrl', function($scope, socket) {
 

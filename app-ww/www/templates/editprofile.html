@@ -14,15 +14,15 @@
             <form id="editProfile-form11" class="list newHouseForm inDivItem">
                 <h2 id="editProfile-heading7" style="color:#FFFFFF;" class=" newHouseHeader subHeader inDivItem">New House</h2>
                 <label class="item item-input newHouseInput Input inDivItem pText" id="editProfile-input8">
-                    <input type="text" placeholder="New House Name">
+                    <input type="text" placeholder="New House Name" ng-model="house.name">
                 </label>
                 <label class="item item-input inDivItem pText newHouseInput Input" id="editProfile-input9">
-                    <input type="text" placeholder="House Country">
+                    <input type="text" placeholder="House Country" ng-model="house.country">
                 </label>
                 <label class="item item-input inDivItem pText newHouseInput Input" id="editProfile-input11">
-                    <input type="text" placeholder="House Location">
+                    <input type="text" placeholder="House Location" ng-model="house.location">
                 </label>
-                <a ui-sref="inside.userhome" id="editProfile-button8" class=" button button-positive  icon ion-android-download Btn newHouseBtn" ng-click="gohousehome()">Create house</a>
+                <button type="submit" ui-sref="inside.userhome" id="editProfile-button8" class=" button button-positive  icon ion-android-download Btn newHouseBtn" ng-click="savehouse()">Create house</button>
             </form>
         </div>
     </ion-content>
