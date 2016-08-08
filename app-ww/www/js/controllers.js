@@ -49,6 +49,12 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
   };
   house = $scope.house;
 
+  $scope.houseit = {
+    house: ' ',
+    name: ' ',
+    id: ' '
+  };
+
 
 
   $scope.$watch(function(){
@@ -83,7 +89,9 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $state.go('inside.editHouse');
   };
 
-  $scope.gohousehome = function() {
+  $scope.gohousehome = function(data) {
+    $scope.houseit = data;
+    console.log(data);
     $state.go('inside.userhome');
 
   };
