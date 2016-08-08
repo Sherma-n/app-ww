@@ -1,13 +1,14 @@
 angular.module('starter')
 
-.controller('LoginCtrl', ['socket', function($scope, AuthService, $ionicPopup, $state) {
+.controller('LoginCtrl', function($scope, AuthService, $ionicPopup, $state) {
   $scope.user = {
     name: '',
     password: ''
   };
 
   $scope.login = function() {
-    AuthService.login($scope.user).then(function(msg) {
+    AuthService.login($scope.user).then(function(data) {
+      console.log(data);
       $state.go('inside.userhome');
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
@@ -16,7 +17,7 @@ angular.module('starter')
       });
     });
   };
-}])
+})
 
 .controller('RegisterCtrl', function($scope, AuthService, $ionicPopup, $state) {
   $scope.user = {
@@ -40,7 +41,16 @@ angular.module('starter')
   };
 })
 
-app.controller('InsideCtrl', ['socket', function($scope, AuthService, API_ENDPOINT, $http, $state, socket) {
+app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", "$state", "socket", "UserFactory", function($scope, AuthService, API_ENDPOINT, $http, $state, socket, UserFactory) {
+  console.log("InsideCtrl");
+
+  $scope.$watch(function(){
+    return UserFactory;
+  }, function(NewValue, OldValue){
+    console.log("New:", NewValue, "Old:", OldValue);
+    $scope.user = UserFactory;
+  });
+
   $scope.destroySession = function() {
     AuthService.logout();
   };
@@ -80,7 +90,6 @@ app.controller('InsideCtrl', ['socket', function($scope, AuthService, API_ENDPOI
     console.log("when");
     $state.go('inside.chat');
   };
-
 }])
 
 // app.controller('socketCtrl', function($scope, socket) {

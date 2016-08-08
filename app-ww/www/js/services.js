@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.service('AuthService', function($q, $http, API_ENDPOINT) {
+.service('AuthService', function($q, $http, API_ENDPOINT, UserFactory) {
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var isAuthenticated = false;
   var authToken;
@@ -49,7 +49,8 @@ angular.module('starter')
       $http.post(API_ENDPOINT.url + '/authenticate', user).then(function(result) {
         if (result.data.success) {
           storeUserCredentials(result.data.token);
-          resolve(result.data.msg);
+          UserFactory.user = result.data.user;
+          resolve(result.data);
         } else {
           reject(result.data.msg);
         }
@@ -80,6 +81,14 @@ angular.module('starter')
       return $q.reject(response);
     }
   };
+})
+
+app.factory('UserFactory', function($rootScope){
+  var x = {
+    user: ''
+  };
+
+  return x;
 })
 
 app.factory('socket', ['socketFactory', function(socketFactory){

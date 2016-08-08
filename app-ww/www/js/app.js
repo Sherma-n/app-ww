@@ -28,28 +28,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('inside.userhome', {
     url: '/inside',
-    templateUrl: 'templates/userhome.html',
-    controller: 'InsideCtrl'
+    templateUrl: 'templates/userhome.html'
   })
   .state('inside.details', {
     url: '/inside/housedetails',
-    templateUrl: 'templates/housedetails.html',
-    controller: 'InsideCtrl'
+    templateUrl: 'templates/housedetails.html'
   })
   .state('inside.editHouse', {
     url: '/inside/edit',
-    templateUrl: 'templates/edithouse.html',
-    controller: 'InsideCtrl'
+    templateUrl: 'templates/edithouse.html'
   })
   .state('inside.editProfile', {
     url: '/inside/editProfile',
-    templateUrl: 'templates/editprofile.html',
-    controller: 'InsideCtrl'
+    templateUrl: 'templates/editprofile.html'
   })
   .state('inside.chat', {
     url: '/inside/chat',
-    templateUrl: 'templates/chat.html',
-    controller: 'InsideCtrl'
+    templateUrl: 'templates/chat.html'
   })
 
   ;
