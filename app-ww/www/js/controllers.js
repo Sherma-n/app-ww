@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('LoginCtrl', function($scope, AuthService, $ionicPopup, $state) {
+.controller('LoginCtrl', [ '$scope', 'AuthService', '$ionicPopup', '$state', 'socket', function($scope, AuthService, $ionicPopup, $state, socket) {
   $scope.user = {
     name: '',
     password: ''
@@ -8,16 +8,16 @@ angular.module('starter')
 
   $scope.login = function() {
     AuthService.login($scope.user).then(function(data) {
-      console.log(data);
+      socket.emit('loggedin', {data});
       $state.go('inside.userhome');
-    }, function(errMsg) {
+     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
         title: 'Login failed!',
         template: errMsg
       });
     });
   };
-})
+}])
 
 .controller('RegisterCtrl', function($scope, AuthService, $ionicPopup, $state) {
   $scope.user = {
@@ -125,6 +125,7 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     socket.on('houseAdded', function (data) {
       console.log(data);
     });
+
     socket.on('loadhouses', function (data) {
       $scope.gohousehome(data);
       console.log(data);
