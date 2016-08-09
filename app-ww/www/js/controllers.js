@@ -8,7 +8,10 @@ angular.module('starter')
 
   $scope.login = function() {
     AuthService.login($scope.user).then(function(data) {
-      socket.emit('loggedin', {data});
+      socket.emit('loggingin', {
+                                  username: $scope.user.name,
+                              });
+
       $state.go('inside.userhome');
      }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
@@ -46,15 +49,30 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     name: '',
     country: '',
     location: '',
+    pollution: ' ',
+    weather: {
+            currentweather: ' ',
+            temperature: 0,
+              },
+    windows: [ ]
   };
   house = $scope.house;
 
   $scope.houseit = {
     house: ' ',
     name: ' ',
-    id: ' '
+    id: ' ',
+    users: ' ',
+    country: ' ',
+    weather: ' '
   };
+  houseit = $scope.houseit
 
+  $scope.windows = {
+    name: ' ',
+    state: true
+  }
+  windows = $scope.windows
 
 
   $scope.$watch(function(){
@@ -72,6 +90,18 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
       $scope.memberinfo = result.data.msg;
     });
+  };
+
+    //logging in to a house
+  $scope.logginginhouse = function (data) {
+    $scope.houseit = {
+                      house: data.name,
+                      name: data.users,
+                      id: data.id,
+                      country: data.country,
+                      weather: data.weather,
+                      }
+    console.log($scope.houseit);
   };
 
   $scope.logout = function() {
@@ -106,10 +136,17 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $state.go('inside.chat');
   };
 
+  //adding a new window
+  $scope.createnewwindow = function (data) {
+    socket.emit('creatingwindow', {
+                                  windowname: windows.name,
+                                  houseid: $scope.houseit.id
+                                  });
+  }
+
   //saving a new house
   $scope.savehouse = function (data) {
     $state.go('inside.userhome');
-    console.log(UserFactory);
     socket.emit('addedHouse', {
                                 house,
                                 user: UserFactory
@@ -128,9 +165,62 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
 
     socket.on('loadhouses', function (data) {
       $scope.gohousehome(data);
-      console.log(data);
+
+    // console.log(data);
       $scope.housereturn(data);
     });
+
+    socket.on('loggedin', function (data){
+      $scope.logginginhouse(data);
+    });
+
+    socket.on('createdwindow', function(data) {
+          house = {
+            name: data.doc.name,
+            country: data.doc.country,
+            location: data.doc.location,
+            pollution: ' ',
+            weather: {
+                    currentweather: ' ',
+                    temperature: 0,
+                      },
+            windows: data.doc.windows
+          };
+      $scope.house = house;
+    })
+
+
+
+    //onlogging in
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
