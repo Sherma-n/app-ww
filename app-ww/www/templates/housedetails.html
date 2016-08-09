@@ -5,31 +5,31 @@
         <!-- House Card  -->
         <div class="list card housediv selected" id="houseDetails-card238">
             <div class="list card lefthouse inDivItem" id="houseDetails-card236">
-                <h3 id="houseDetails-heading12" style="color:#000000;" class=" homeHouseName subHeader inDivItem">{{houseit.house}}</h3>
+                <h3 id="houseDetails-heading12" style="color:#000000;" class=" homeHouseName subHeader inDivItem">{{house.name}}</h3>
                 <div class="item item-body homeUser inDivItem" id="houseDetails-list-item-container28">
                     <ion-list id="houseDetails-list5" class=" ">
-                        <ion-item id="houseDetails-list-item56" class="  homeUserName pText inDivItem">{{houseit.name}}</ion-item>
-                        <ion-item id="houseDetails-list-item57" class="  homeUserName pText inDivItem">{{}}</ion-item>
-                        <ion-item id="houseDetails-list-item58" class="  homeUserName pText inDivItem">{{}}</ion-item>
+                        <ion-item id="houseDetails-list-item56" class="  homeUserName pText inDivItem">{{house.users[0]}}</ion-item>
+                        <ion-item id="houseDetails-list-item57" class="  homeUserName pText inDivItem">{{house.users[1]}}</ion-item>
+                        <ion-item id="houseDetails-list-item58" class="  homeUserName pText inDivItem">{{house.users[2]}}</ion-item>
                     </ion-list>
                 </div>
             </div>
             <div class="list card manual-card-fullwidth righthouse inDivItem" id="houseDetails-card237">
-                <h3 id="houseDetails-heading13" style="color:#000000;" class=" HomeHouseCountry subHeader Country">{{houseit.country}}</h3>
-                <h2 id="houseDetails-markdown15" style="color:#000000;" class=" HomeHouseTemp">28°</h2>
+                <h3 id="houseDetails-heading13" style="color:#000000;" class=" HomeHouseCountry subHeader Country">{{house.country}}</h3>
+                <h2 id="houseDetails-markdown15" style="color:#000000;" class=" HomeHouseTemp">{{house.weather.temperature + "°"}}</h2>
                 <div class="HomeHouseImg item item-image">
                     <img src="img/resourcesunny.png" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                 </div>
-                <p id="houseDetails-markdown16" style="color:#000000;" class=" HomeHouseWeather">SUNNY</p>
+                <p id="houseDetails-markdown16" style="color:#000000;" class=" HomeHouseWeather">{{house.weather.currentweather}}</p>
             </div>
         </div>
         <div class="list card windowDiv" id="houseDetails-card22">
-            <div class="item item-body homeWindowsContainer inDivItem" id="houseDetails-list-item-container37">
+            <div class="item item-body homeWindowsContainer inDivItem" id="houseDetails-list-item-container37" ng-repeat="window in house.windows">
                 <div class="homeWindowImg inDivItem">
                     <img src="img/resourcesopenwindow.png" width="50%" height="50%" style="display: block; margin-left: auto; margin-right: auto;">
                 </div>
-                <h2 id="houseDetails-heading19" style="color:#FFFFFF;" class=" homeWindowHead pText inDivItem">Master BedRoom</h2>
-                <p id="houseDetails-markdown31" style="color:#FFFFFF;" class=" homeWindowStatus ptext inDivItem">Open</p>
+                <h2 id="houseDetails-heading19" style="color:#FFFFFF;" class=" homeWindowHead pText inDivItem">{{window.windowname}}</h2>
+                <p id="houseDetails-markdown31" style="color:#FFFFFF;" class=" homeWindowStatus ptext inDivItem">{{"Open Window : " + window.windowstatus}}</p>
             </div>
         </div>
     </ion-content>

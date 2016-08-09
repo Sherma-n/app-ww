@@ -47,12 +47,14 @@ angular.module('starter')
 app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", "$state", "socket", "UserFactory", function($scope, AuthService, API_ENDPOINT, $http, $state, socket, UserFactory) {
   $scope.house = {
     name: '',
+    users: [],
     country: '',
     location: '',
+    id: ' ',
     pollution: ' ',
     weather: {
             currentweather: ' ',
-            temperature: 0,
+            temperature: 28,
               },
     windows: [ ]
   };
@@ -73,6 +75,13 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     state: true
   }
   windows = $scope.windows
+
+  // $scope.$watch(function() {
+  //   return mySocket;
+  // }, function(stuffs) {
+  //   console.log('this is the socketFactory');
+  //   console.log(stuffs);
+  // })
 
 
   $scope.$watch(function(){
@@ -114,6 +123,51 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $state.go('inside.details');
   };
 
+  $scope.refreshing = function () {
+    console.log('pressed');
+    console.log(UserFactory);
+    socket.emit('getData', {user: UserFactory.user});
+
+    socket.on('showhouse', function (data) {
+      $scope.house = data;
+    });
+    socket.on('showuser', function (data) {
+      console.log('itsthishere');
+      console.log(data);
+      UserFactory.user = data.user;
+      UserFactory.houses = data.houses;
+      UserFactory.password = data.password;
+      UserFactory.id = data.id;
+    });
+  };
+
+    //Fakehardcode
+    $scope.fakerefreshing = function (data) {
+    console.log('pressed');
+    console.log(UserFactory);
+    socket.emit('getData', {user: "testing"});
+
+    socket.on('showhouse', function (data) {
+      $scope.house = data;
+    });
+    socket.on('showuser', function (data) {
+      console.log('itsthishere');
+      console.log(data);
+      UserFactory.user = data.user;
+      UserFactory.houses = data.houses;
+      UserFactory.password = data.password;
+      UserFactory.id = data.id;
+    });
+  };
+
+  $scope.removeuser = function (user) {
+    console.log(user);
+    socket.emit('removinghouseuser', {
+                                      remove: user,
+                                      housename: $scope.house.name
+    });
+  }
+
   $scope.gohouseedit = function() {
     console.log("who");
     $state.go('inside.editHouse');
@@ -123,7 +177,6 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $scope.houseit = data;
     console.log(data);
     $state.go('inside.userhome');
-
   };
 
   $scope.goedithome = function() {
@@ -136,11 +189,14 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $state.go('inside.chat');
   };
 
+
   //adding a new window
   $scope.createnewwindow = function (data) {
+    console.log('creating a windows');
+    console.log($scope.house)
     socket.emit('creatingwindow', {
                                   windowname: windows.name,
-                                  houseid: $scope.houseit.id
+                                  houseid: $scope.house.id
                                   });
   }
 
@@ -148,7 +204,7 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
   $scope.savehouse = function (data) {
     $state.go('inside.userhome');
     socket.emit('addedHouse', {
-                                house,
+                                house: house.id,
                                 user: UserFactory
                               }
     )};
@@ -156,11 +212,26 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $scope.housereturn = function (data) {
       user = data;
       console.log();
+    };
+
+
+
+    $scope.updatehouses = function (data) {
+      socket.on('gettinghouses', {user: UserFactory});
+      $scope.house = data;
+      console.log('house updated');
+      console.log($scope.house)
     }
+
 
 
     socket.on('houseAdded', function (data) {
       console.log(data);
+    });
+
+    //Fakehardcode
+    socket.on('arefreshing', function (data) {
+      $scope.fakerefreshing(data);
     });
 
     socket.on('loadhouses', function (data) {
@@ -171,23 +242,14 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     });
 
     socket.on('loggedin', function (data){
-      $scope.logginginhouse(data);
+      $scope.updatehouses(data);
     });
 
     socket.on('createdwindow', function(data) {
-          house = {
-            name: data.doc.name,
-            country: data.doc.country,
-            location: data.doc.location,
-            pollution: ' ',
-            weather: {
-                    currentweather: ' ',
-                    temperature: 0,
-                      },
-            windows: data.doc.windows
-          };
-      $scope.house = house;
-    })
+      $scope.updatehouses(data);
+      $scope.refreshing();
+    });
+
 
 
 

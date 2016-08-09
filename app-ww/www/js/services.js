@@ -85,15 +85,15 @@ angular.module('starter')
 
 app.factory('UserFactory', function($rootScope){
   var x = {
-    user: ''
+    user: '',
+    houses: [],
+    password: ' ',
+    id: ' '
   };
 
   return x;
 })
 
-app.factory('socket', ['socketFactory', function(socketFactory){
-  return socketFactory();
-}])
 
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
