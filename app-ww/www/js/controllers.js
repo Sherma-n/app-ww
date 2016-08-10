@@ -114,18 +114,27 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
         newuser: $scope.house.newusers,
         houseid: $scope.house._id
       })
-    }
-    if ($scope.house.windows.windowname) {
+    } else if ($scope.house.windows.windowname) {
+      console.log($scope.house.windows.windowname);
       socket.emit('creatingwindow', {
-        newwindow: $scope.house.windows.windowname
+        newwindow: $scope.house.windows.windowname,
+        houseid: $scope.house._id
       })
     }
   };
 
   $scope.removeuser = function (data) {
-    console.log(data);
+    // console.log(data);
     socket.emit('removinguser', {
       removeuser: data,
+      houseid: $scope.house._id
+    });
+  };
+
+  $scope.removewindow = function (data) {
+    // console.log(data);
+    socket.emit('removingwindow', {
+      removewindow: data,
       houseid: $scope.house._id
     })
   }
