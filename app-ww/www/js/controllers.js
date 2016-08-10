@@ -74,7 +74,7 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
       console.log('$scope.windows');
       console.log($scope.windows);
       console.log('value to find');
-      console.log($scope.userlist);
+      console.log($scope.windows.name);
       // updateallinfo();
     });
   };
@@ -113,8 +113,13 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
       socket.emit('addingnewuser', {
         newuser: $scope.house.newusers,
         houseid: $scope.house._id
-      });
-    };
+      })
+    }
+    if ($scope.house.windows.windowname) {
+      socket.emit('creatingwindow', {
+        newwindow: $scope.house.windows.windowname
+      })
+    }
   };
 
   $scope.removeuser = function (data) {

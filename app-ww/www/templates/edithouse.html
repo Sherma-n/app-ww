@@ -11,7 +11,6 @@
                     <ion-item class="item-icon-right light  EditHouseUsers pText inDivItem" id="editHouse-list-item69">{{user}}
                         <i class="btn icon ion-ios-minus-outline" ng-click="removeuser(user)"></i>
                     </ion-item>
-                    </ion-item>
 
                 </ion-list>
                     <label class="item item-input newUserInput pText inDivItem inputBox" id="editHouse-input16" name="AddUser">
@@ -20,15 +19,15 @@
             </div>
             <h3 id="editHouse-heading17" style="color:#FFFFFF;" class=" EditHouseWindows subHeader">Windows:</h3>
             <div class="item item-body windowInputform inDivItem" id="editHouse-list-item-container35">
-                <ion-list id="editHouse-list10" class=" ">
-<!--                     <ion-item class="item-icon-right light  EditHouseWindow pText inDivItem" id="editHouse-list-item73">Living Room
+                <ion-list id="editHouse-list10" class=" " ng-repeat="window in house.windows">
+                     <ion-item class="item-icon-right light  EditHouseWindow pText inDivItem" id="editHouse-list-item73">{{window.windowname}}
                         <i class="icon ion-ios-minus-outline"></i>
                     </ion-item>
-                    <ion-item class="item-icon-right light  EditHouseWindow pText inDivItem" id="editHouse-list-item74">Master Bedroom
+                   <!-- <ion-item class="item-icon-right light  EditHouseWindow pText inDivItem" id="editHouse-list-item74">Master Bedroom
                         <i class="icon ion-ios-minus-outline"></i>
                     </ion-item> -->
                     <label class="item item-input newUserInput pText inDivItem inputBox" id="editHouse-input18" name="AddWindow">
-                        <input type="text" class="newwindowinput" placeholder="Add New Window" ng-model="windows.name">
+                        <input type="text" class="newwindowinput" placeholder="Add New Window" ng-model="house.windows.windowname">
                     </label>
                 </ion-list>
             </div>
