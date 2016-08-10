@@ -1,17 +1,17 @@
 userhome.html<ion-view title="Homepage" hide-nav-bar="true" id="page2" class=" ">
     <ion-content padding="true" style="background: url(img/weatherback.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
        <a ui-sref="inside.editProfile" id="houseDetails-button10" style="text-align:right;" class=" button button-positive  icon ion-edit editHouseDetail btn" ng-click="gohouseedit()"></a>
-        <h1 id="homepage-heading5" style="color:#FFFFFF;" class=" homePageUser Header">{{ user.user }}</h1>
+        <h1 id="homepage-heading5" style="color:#FFFFFF;" class=" homePageUser Header">{{ user.user.name }}</h1>
 
         <h3 id="homepage-heading5" style="color:#FFFFFF;" class=" homePageUser Header">Houses</h3>
         <div class="list card housediv" id="homepage-card225">
             <div class="list card lefthouse inDivItem" id="homepage-card227">
                 <h3 id="homepage-heading2" style="color:#424143;font-weight:300;" class=" homeHouseName subHeader inDivItem">{{house.name}}</h3>
                 <div class="item item-body homeUserContainer inDivItem" id="homepage-list-item-container23">
-                    <ion-list id="homepage-list4" class="userList">
-                        <ion-item id="homepage-list-item45" class="  homeUserName pText inDivItem">{{house.users[0]}}</ion-item>
-                        <ion-item id="homepage-list-item46" class="  homeUserName pText inDivItem">{{house.users[1]}}</ion-item>
-                        <ion-item id="homepage-list-item47" class="  homeUserName pText inDivItem">{{house.users[2]}}</ion-item>
+                    <ion-list id="homepage-list4" class="userList" ng-repeat="user in userlist">
+                        <ion-item id="homepage-list-item45" class="  homeUserName pText inDivItem">{{user}}</ion-item>
+<!--                         <ion-item id="homepage-list-item46" class="  homeUserName pText inDivItem">{{house.users[1]}}</ion-item>
+                        <ion-item id="homepage-list-item47" class="  homeUserName pText inDivItem">{{house.users[2]}}</ion-item> -->
                     </ion-list>
                 </div>
             </div>
@@ -23,7 +23,7 @@ userhome.html<ion-view title="Homepage" hide-nav-bar="true" id="page2" class=" "
                 </div>
                 <p id="homepage-markdown37" style="color:#424143;text-align:right;" class=" HomeHouseWeather">SUNNY</p>
             </div>
-            <a ui-sref="inside.details" id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-positive button-small icon ion-edit editHouseBtn inDivItem btn" ng-click="gohousedetails()"></a>
+            <a ui-sref="inside.details" id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-positive button-small icon ion-edit editHouseBtn inDivItem btn" ng-click="logout()"></a>
             <a id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-dark button-small icon ion-edit editHouseBtn inDivItem btn" ng-click="refreshing()"></a>
         </div>
     </ion-content>

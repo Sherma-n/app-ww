@@ -42,7 +42,7 @@ angular.module('starter')
 })
 
 app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", "$state", "socket", "UserFactory", "$rootScope", function($scope, AuthService, API_ENDPOINT, $http, $state, socket, UserFactory, $rootScope) {
-  $scope.houses  = [];
+  $scope.userlist  = [];
   $scope.house   = {};
   $scope.windows = {};
 
@@ -64,13 +64,38 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
 
   $scope.refreshData = function () {
     socket.emit('getData', {id: UserFactory.user._id});
-
     socket.on('arefreshing', function (data) {
-      $scope.house = data.houses[0];
+      $scope.house = data.houses;
+      console.log('$scope.user');
+      console.log($scope.user);
+      console.log('$scope.house');
+      console.log($scope.house);
+      console.log('$scope.windows');
+      console.log($scope.windows);
+      console.log('value to find');
+      console.log($scope.user.user._id);
     });
   };
 
-}])
+  socket.on('updateuserlist', function (data) {
+    $scope.userlist = data.userlist;
+  })
+
+  $scope.savehouse = function (data) {
+    $state.go('inside.userhome');
+    socket.emit('addedHouse', {
+        housename: $scope.house.name,
+        housecountry: $scope.house.country,
+        houselocation: $scope.house.location,
+        userid: $scope.user.user.id,
+        houseid: $scope.house._id
+    })
+  };
+
+
+
+}])// Inside Controller end
+
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
   $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {
