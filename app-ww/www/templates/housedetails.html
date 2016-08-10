@@ -3,12 +3,13 @@
         <h2 id="houseDetails-heading11" style="color:#FFFFFF;" class="PageTitle">House Details</h2>
         <a ui-sref="inside.editHouse" id="houseDetails-button10" style="text-align:right;" class=" button button-dark  icon ion-edit editHouseDetail btn" ng-click="gohouseedit()"></a>
         <!-- House Card  -->
-        <div class="list card housediv selected" id="houseDetails-card238">
+        <div class="list card selected" id="houseDetails-card238" ng-class="{'goodweather': house.skycode > 22, 'badweather': house.skycode <= 22 }">
             <div class="list card lefthouse inDivItem" id="houseDetails-card236">
                 <h3 id="houseDetails-heading12" style="color:#000000;" class=" homeHouseName subHeader inDivItem">{{house.name}}</h3>
                 <div class="item item-body homeUser inDivItem" id="houseDetails-list-item-container28">
                     <ion-list id="houseDetails-list5" class=" " ng-repeat="user in userlist">
                         <ion-item id="houseDetails-list-item56" class="  homeUserName pText inDivItem">{{user}}</ion-item>
+
                     </ion-list>
                 </div>
             </div>
@@ -19,6 +20,7 @@
                     <img src="{{house.img}}" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                 </div>
                 <p id="houseDetails-markdown16" style="color:#000000;" class=" HomeHouseWeather">{{house.currentweather}}</p>
+                <p class="invisibletext">{{house.skycode}}</p>
             </div>
         </div>
         <div class="list card windowDiv" id="houseDetails-card22">

@@ -141,7 +141,7 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
 
   $scope.togglewindow = function (data) {
     console.log($scope.house.windows.windowname);
-    socket.emit('changewindowstate', {
+    io.emit('changewindowstate', {
       // windowname: $scope.window.windowname,
       // houseid : $scope.house._id
     });

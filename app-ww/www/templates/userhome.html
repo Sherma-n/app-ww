@@ -4,7 +4,7 @@ userhome.html<ion-view title="Homepage" hide-nav-bar="true" id="page2" class=" "
         <h1 id="homepage-heading5" style="color:#FFFFFF;" class=" homePageUser Header">{{ user.user.name }}</h1>
 
         <h3 id="homepage-heading5" style="color:#FFFFFF;" class=" homePageUser Header">Houses</h3>
-        <div class="list card housediv" id="homepage-card225">
+        <div class="list card" id="homepage-card225" ng-class="{'goodweather': house.skycode > 22, 'badweather': house.skycode <= 22 }">
             <div class="list card lefthouse inDivItem" id="homepage-card227">
                 <h3 id="homepage-heading2" style="color:#424143;font-weight:300;" class=" homeHouseName subHeader inDivItem">{{house.name}}</h3>
                 <div class="item item-body homeUserContainer inDivItem" id="homepage-list-item-container23">
@@ -22,6 +22,7 @@ userhome.html<ion-view title="Homepage" hide-nav-bar="true" id="page2" class=" "
                     <img src="{{house.img}}" width="100%" height="30%" style="display: block; margin-left: auto;">
                 </div>
                 <p id="homepage-markdown37" style="color:#424143;text-align:right;" class=" HomeHouseWeather">{{house.currentweather}}</p>
+                <p class="invisibletext">{{house.skycode}}</p>
             </div>
             <a ui-sref="inside.details" id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-positive button-small icon ion-edit editHouseBtn inDivItem btn" ng-click="logout()"></a>
             <a id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-dark button-small icon ion-edit editHouseBtn inDivItem btn" ng-click="refreshing()"></a>
