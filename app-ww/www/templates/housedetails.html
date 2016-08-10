@@ -24,12 +24,12 @@
             </div>
         </div>
         <div class="list card windowDiv" id="houseDetails-card22">
-            <div class="item item-body homeWindowsContainer inDivItem" id="houseDetails-list-item-container37" ng-repeat="window in house.windows">
-                <div class="homeWindowImg inDivItem">
-                    <img src="img/resourcesopenwindow.png" width="50%" height="50%" style="display: block; margin-left: auto; margin-right: auto;">
+            <div class="item item-body homeWindowsContainer inDivItem" id="houseDetails-list-item-container37" ng-repeat="window in house.windows" >
+                <div class="homeWindowImg inDivItem closedwindow" ng-class="{'openwindow': window.windowstatus == 'true', 'closedwindow': window.windowstatus == 'false'}">
+                    <!-- <img src="" width="50px" height="50px" style="display: block; margin-left: auto; margin-right: auto;" ng-class="{'openwindow': window.windowstatus == 'true' , 'closedwindow': window.windowstatus == 'false'} "> -->
                 </div>
                 <h2 id="houseDetails-heading19" style="color:#FFFFFF;" class=" homeWindowHead pText inDivItem">{{window.windowname}}</h2>
-                <p id="houseDetails-markdown31" style="color:#FFFFFF;" class=" homeWindowStatus ptext inDivItem">{{"Open Window : " + window.windowstatus}}</p>
+                <p id="houseDetails-markdown31" style="color:#FFFFFF;" class=" homeWindowStatus ptext inDivItem">{{window.windowstatus}}</p>
             </div>
         </div>
     </ion-content>

@@ -9905,3 +9905,52 @@ a.button {
 .newwindowinput {
   color: white;
 }
+
+/*Openwindow*/
+.openwindow {
+  background: url('/img/opened-window-door-of-glasses.png') no-repeat center center;
+  background-size: 100%;
+}
+
+/*Closed Window*/
+.closedwindow {
+   background: url('/img/closed-window.png') no-repeat center center;
+  background-size: 100%;
+}
+
+/*good weather*/
+.goodweather {
+  display: block;
+  float: center;
+  width: 100%;
+  box-shadow: 2px 2px 1px #888888;
+  border-radius: 0;
+  /*background-image: url(img/sunnyback.png);*/
+  background-color: rgba(200,200,200,0.7);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 5px;
+}
+
+/*bad weather*/
+.badweather {
+  display: block;
+  float: center;
+  width: 100%;
+  box-shadow: 2px 2px 1px #888888;
+  border-radius: 0;
+  /*background-image: url(img/sunnyback.png);*/
+  background-color: rgba(200,200,200,0.7);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 5px;
+}
+
+.homeWindowImg {
+  width: 100px;
+  height: 100px;
+  /*border: 1px solid white;*/
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
