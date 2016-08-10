@@ -32,6 +32,21 @@ angular.module('starter')
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
   }
 
+  var validateToken = function() {
+    return $q(function(resolve, reject){
+      $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
+        if (result.data.success) {
+          console.log(result.data)
+          UserFactory.user = result.data.user;
+          console.log(UserFactory)
+          resolve(result.data.msg)
+        } else {
+          reject(result.data.msg);
+        }
+      });
+    })
+  }
+
   var register = function(user) {
     return $q(function(resolve, reject) {
       $http.post(API_ENDPOINT.url + '/signup', user).then(function(result) {
@@ -68,6 +83,7 @@ angular.module('starter')
     login: login,
     register: register,
     logout: logout,
+    validateToken: validateToken,
     isAuthenticated: function() {return isAuthenticated;},
   };
 })

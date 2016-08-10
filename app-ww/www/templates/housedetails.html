@@ -25,7 +25,7 @@
         </div>
         <div class="list card windowDiv" id="houseDetails-card22">
             <div class="item item-body homeWindowsContainer inDivItem" id="houseDetails-list-item-container37" ng-repeat="window in house.windows" >
-                <div class="homeWindowImg inDivItem closedwindow" ng-class="{'openwindow': window.windowstatus == 'true', 'closedwindow': window.windowstatus == 'false'}">
+                <div class="homeWindowImg inDivItem" ng-class="{'openwindow': window.windowstatus == true, 'closedwindow': window.windowstatus == false}">
                     <!-- <img src="" width="50px" height="50px" style="display: block; margin-left: auto; margin-right: auto;" ng-class="{'openwindow': window.windowstatus == 'true' , 'closedwindow': window.windowstatus == 'false'} "> -->
                 </div>
                 <h2 id="houseDetails-heading19" style="color:#FFFFFF;" class=" homeWindowHead pText inDivItem">{{window.windowname}}</h2>
