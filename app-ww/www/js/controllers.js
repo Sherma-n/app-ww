@@ -2,6 +2,7 @@ angular.module('starter')
 
 .controller('LoginCtrl', [ '$scope', 'AuthService', '$ionicPopup', '$state', 'socket', '$http', 'API_ENDPOINT', 'UserFactory', function($scope, AuthService, $ionicPopup, $state, socket, $http, API_ENDPOINT, UserFactory) {
   $scope.user = {};
+  $scope.newusers = '';
 
   AuthService.validateToken().then(function(data) {
     $state.go("inside.userhome");
@@ -73,12 +74,19 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
       console.log('$scope.windows');
       console.log($scope.windows);
       console.log('value to find');
-      console.log($scope.user.user._id);
+      console.log($scope.userlist);
+      // updateallinfo();
     });
   };
 
   socket.on('updateuserlist', function (data) {
+    console.log('updateuserlist');
+    console.log(data)
     $scope.userlist = data.userlist;
+  });
+
+  socket.on('newestupdate', function () {
+    $scope.refreshData();
   })
 
   $scope.savehouse = function (data) {
@@ -89,7 +97,24 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
         houselocation: $scope.house.location,
         userid: $scope.user.user.id,
         houseid: $scope.house._id
-    })
+    });
+  };
+
+  $scope.updateallinfo = function () {
+    socket.emit('allupdate', {
+      currentusername: $scope.user.user.name,
+      currenthouseid: $scope.house._id
+
+    });
+  };
+
+  $scope.submitform = function (data) {
+    if($scope.house.newusers) {
+      socket.emit('addingnewuser', {
+        newuser: $scope.house.newusers,
+        houseid: $scope.house._id
+      });
+    };
   };
 
 

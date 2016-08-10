@@ -1,18 +1,17 @@
 <ion-view title="Edit Profile" hide-nav-bar="true" id="page4" class=" ">
     <ion-content padding="true" style="background: url(img/weatherback.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
         <div class="spacer" style="width: 300px; height: 3px;"></div>
-        <h1 id="editProfile-heading8" style="color:#FFFFFF;" class=" EditProfileHeader Header">Edit Profile</h1>
+        <h1 id="editProfile-heading8" style="color:#FFFFFF;" class=" EditProfileHeader Header">Edit House</h1>
         <div class="list card EditProfileDiv" id="editProfile-card230">
-            <h2 id="editProfile-heading4" style="color:#FFFFFF;" class=" EditProfileUser subHeader inDivItem">Username</h2>
+            <h2 id="editProfile-heading4" style="color:#FFFFFF;" class=" EditProfileUser subHeader inDivItem">House Details</h2>
             <div class="list card editHouseCard" id="editProfile-card231">
-                <h3 id="editProfile-heading6" style="color:#424143;" class=" houseName editProfileHouseName subHeader inDivItem">23A Laguna Varde</h3>
-                <p id="editProfile-markdown13" style="color:#424143;" class=" Country editHouseWeather inDivItem">Hong Kong, HK</p>
-                <a ui-sref="inside.userhome" id="editProfile-button6" style="text-align:left;border-radius:0px 0px 0px 0px;" class=" button button-positive  icon-left ion-android-delete Btn editHouseDelBtn" ng-click="gohousehome()">Remove House</a>
+                <h3 id="editProfile-heading6" style="color:#424143;" class=" houseName editProfileHouseName subHeader inDivItem">{{house.name}}</h3>
+                <p id="editProfile-markdown13" style="color:#424143;" class=" Country editHouseWeather inDivItem">{{house.country + ',' + house.location}}</p>
             </div>
         </div>
         <div class="list card addNewHouseForm" id="editProfile-card235">
             <form id="editProfile-form11" class="list newHouseForm inDivItem">
-                <h2 id="editProfile-heading7" style="color:#FFFFFF;" class=" newHouseHeader subHeader inDivItem">New House</h2>
+                <h2 id="editProfile-heading7" style="color:#FFFFFF;" class=" newHouseHeader subHeader inDivItem">Change Details</h2>
                 <label class="item item-input newHouseInput Input inDivItem pText" id="editProfile-input8">
                     <input type="text" placeholder="New House Name" ng-model="house.name">
                 </label>
@@ -22,7 +21,7 @@
                 <label class="item item-input inDivItem pText newHouseInput Input" id="editProfile-input11">
                     <input type="text" placeholder="House Location" ng-model="house.location">
                 </label>
-                <button type="submit" ui-sref="inside.userhome" id="editProfile-button8" class=" button button-positive  icon ion-android-download Btn newHouseBtn" ng-click="savehouse()">Create house</button>
+                <button type="submit" ui-sref="inside.userhome" id="editProfile-button8" class=" button button-positive  icon ion-android-download Btn newHouseBtn" ng-click="savehouse()">Update/Create</button>
             </form>
         </div>
     </ion-content>
