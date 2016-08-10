@@ -117,6 +117,14 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     };
   };
 
+  $scope.removeuser = function (data) {
+    console.log(data);
+    socket.emit('removinguser', {
+      removeuser: data,
+      houseid: $scope.house._id
+    })
+  }
+
 
 
 }])// Inside Controller end
