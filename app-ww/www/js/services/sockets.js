@@ -7,9 +7,6 @@ app.factory('socket', ['socketFactory','API_ENDPOINT', 'AuthService', '$state', 
 
   mySocket.on('connect', function () {
     console.log("connect")
-    AuthService.validateToken().then(function(data) {
-      $state.go("inside.userhome");
-    });
   })
 
   mySocket.on('reconnect', function () {

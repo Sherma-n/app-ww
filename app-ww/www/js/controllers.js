@@ -1,10 +1,11 @@
 angular.module('starter')
 
 .controller('LoginCtrl', [ '$scope', 'AuthService', '$ionicPopup', '$state', 'socket', '$http', 'API_ENDPOINT', 'UserFactory', function($scope, AuthService, $ionicPopup, $state, socket, $http, API_ENDPOINT, UserFactory) {
-  $scope.user = {
-    name: '',
-    password: ''
-  };
+  $scope.user = {};
+
+  AuthService.validateToken().then(function(data) {
+    $state.go("inside.userhome");
+  });
 
   $scope.login = function() {
     AuthService.login($scope.user).then(function(data) {
@@ -40,60 +41,14 @@ angular.module('starter')
   };
 })
 
-app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", "$state", "socket", "UserFactory", function($scope, AuthService, API_ENDPOINT, $http, $state, socket, UserFactory) {
-  $scope.house = {
-    name: '',
-    users: [],
-    country: '',
-    location: '',
-    id: ' ',
-    pollution: ' ',
-    weather: {
-      currentweather: ' ',
-      temperature: 28,
-    },
-    windows: [ ]
-  };
-  house = $scope.house;
+app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", "$state", "socket", "UserFactory", "$rootScope", function($scope, AuthService, API_ENDPOINT, $http, $state, socket, UserFactory, $rootScope) {
+  $scope.houses  = [];
+  $scope.house   = {};
+  $scope.windows = {};
 
-  $scope.houseit = {
-    house: ' ',
-    name: ' ',
-    id: ' ',
-    users: ' ',
-    country: ' ',
-    weather: ' '
-  };
-  houseit = $scope.houseit
-
-  $scope.windows = {
-    name: ' ',
-    state: true
-  }
-  windows = $scope.windows
-
-  // $scope.$watch(function() {
-  //   return mySocket;
-  // }, function(stuffs) {
-  //   console.log('this is the socketFactory');
-  //   console.log(stuffs);
-  // })
-
-
-
-  //   var login = function(user) {
-  //   return $q(function(resolve, reject) {
-  //     $http.post(API_ENDPOINT.url + '/authenticate', user).then(function(result) {
-  //       if (result.data.success) {
-  //         storeUserCredentials(result.data.token);
-  //         UserFactory.user = result.data.user;
-  //         resolve(result.data);
-  //       } else {
-  //         reject(result.data.msg);
-  //       }
-  //     });
-  //   });
-  // };
+  AuthService.validateToken().then(function(data) {
+    $scope.user = UserFactory;
+  });
 
   $scope.$watch(function(){
     return UserFactory;
@@ -102,185 +57,20 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     $scope.user = UserFactory;
   });
 
-  $scope.destroySession = function() {
-    AuthService.logout();
-  };
-
-  $scope.getInfo = function() {
-    $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
-      $scope.memberinfo = result.data.msg;
-    });
-  };
-
-    //logging in to a house
-  $scope.logginginhouse = function (data) {
-    $scope.houseit = {
-      house: data.name,
-      name: data.users,
-      id: data.id,
-      country: data.country,
-      weather: data.weather,
-    }
-    console.log($scope.houseit);
-  };
-
-  $scope.logout = function() {
-    AuthService.logout();
-    $state.go('outside.login');
-  };
-
-  $scope.gohousedetails = function() {
-    console.log("what");
-    $state.go('inside.details');
-  };
-
-  $scope.refreshing = function () {
-    console.log('pressed stuffs');
-    console.log(UserFactory.user);
-    socket.emit('getData', {user: UserFactory.user});
-
-    socket.on('showhouse', function (data) {
-      $scope.house = data;
-    });
-    socket.on('showuser', function (data) {
-      console.log('itsthishere');
-      UserFactory.user     = data.user;
-      UserFactory.houses   = data.houses;
-      UserFactory.password = data.password;
-      UserFactory.id       = data.id;
-    });
-  };
-
-    //Fakehardcode
-  $scope.fakerefreshing = function (data) {
-    console.log('pressed');
-    console.log(data);
-    console.log(UserFactory.user);
-    socket.emit('getData', {user: UserFactory.user});
-
-    socket.on('showhouse', function (data) {
-      $scope.house = data;
-    });
-    socket.on('showuser', function (data) {
-      console.log('itsthishere');
-      UserFactory.user = data.user;
-      UserFactory.houses = data.houses;
-      UserFactory.password = data.password;
-      UserFactory.id = data.id;
-    });
-  };
-
-  $scope.removeuser = function (user) {
-    socket.emit('removinghouseuser', {
-      remove: user,
-      housename: $scope.house.name
-    });
-  }
-
-  $scope.gohouseedit = function() {
-    console.log("who");
-    $state.go('inside.editHouse');
-  };
-
-  $scope.gohousehome = function(data) {
-    $scope.houseit = data;
-    $state.go('inside.userhome');
-  };
-
-  $scope.goedithome = function() {
-    console.log("when");
-    $state.go('inside.editProfile');
-  };
-
-  $scope.gochat = function() {
-    console.log("gonetochat");
-    $state.go('inside.chat');
-  };
-
-
-  //adding a new window
-  $scope.createnewwindow = function (data) {
-    $scope.refreshing();
-    console.log('creating a windows');
-    socket.emit('creatingwindow', {
-      username: UserFactory.user,
-      windowname: windows.name,
-      houseid: $scope.house.id
-    });
-
-    if ($scope.house.user) {
-      // user exists
-      socket.emit('addingauser', {
-          newuser: $scope.house.user,
-          houseid: $scope.house.id
-      });
-    }
-    if ($scope.house.name) {
-      socket.emit('updatehousename', {
-          newname: $scope.house.name,
-          houseid: $scope.house.id,
-          username: UserFactory.user
-      })
-    }
-  };
-
-  //saving a new house
-  $scope.savehouse = function (data) {
-    $state.go('inside.userhome');
-    socket.emit('addedHouse', {
-        house: house.id,
-        user: UserFactory
-    })
-  };
-
-  $scope.housereturn = function (data) {
-    user = data;
-  };
-
-  $scope.updatehouses = function (data) {
-    socket.on('gettinghouses', {user: UserFactory});
-    $scope.house = data;
-    console.log('house updated');
-  }
-
-  socket.on('houseAdded', function (data) {
-    console.log('houseAdded');
+  $rootScope.$on('validated', function () {
+    console.log("user validated!!! please get data")
+    $scope.refreshData();
   });
 
-  //Fakehardcode
-  socket.on('arefreshing', function (data) {
-    $scope.fakerefreshing(data);
-  });
+  $scope.refreshData = function () {
+    socket.emit('getData', {id: UserFactory.user._id});
 
-  socket.on('loadhouses', function (data) {
-    $scope.gohousehome(data);
+    socket.on('arefreshing', function (data) {
+      $scope.house = data.houses[0];
+    });
+  };
 
-    $scope.housereturn(data);
-  });
-
-  socket.on('loggedinuser', function (data) {
-    console.log('right before logged in user');
-    console.log(data);
-      UserFactory.user = data.name;
-      UserFactory.houses = data.houses;
-      UserFactory.id = data.id;
-  });
-
-  socket.on('loggedin', function (data){
-    // console.log('on logged in')
-    // console.log(data);
-    $scope.updatehouses(data);
-  });
-
-  socket.on('createdwindow', function(data) {
-    $scope.updatehouses(data);
-    $scope.fakrefreshing();
-  });
 }])
-
-// app.controller('socketCtrl', function($scope, socket) {
-
-// }])
 
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
   $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {

@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.service('AuthService', function($q, $http, API_ENDPOINT, UserFactory) {
+.service('AuthService', function($q, $http, API_ENDPOINT, UserFactory, $rootScope) {
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var isAuthenticated = false;
   var authToken;
@@ -38,7 +38,7 @@ angular.module('starter')
         if (result.data.success) {
           console.log(result.data)
           UserFactory.user = result.data.user;
-          console.log(UserFactory)
+          $rootScope.$emit("validated");
           resolve(result.data.msg)
         } else {
           reject(result.data.msg);
@@ -65,6 +65,7 @@ angular.module('starter')
         if (result.data.success) {
           storeUserCredentials(result.data.token);
           UserFactory.user = result.data.user;
+          $rootScope.$emit("validated");
           resolve(result.data);
         } else {
           reject(result.data.msg);
