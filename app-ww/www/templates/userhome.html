@@ -1,6 +1,6 @@
-userhome.html<ion-view title="Homepage" hide-nav-bar="true" id="page2" class=" ">
+<ion-view title="Homepage" hide-nav-bar="true" id="page2" class=" ">
     <ion-content padding="true" style="background: url(img/weatherback.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
-       <a ui-sref="inside.editProfile" id="houseDetails-button10" style="text-align:right;" class=" button button-positive  icon ion-edit editHouseDetail btn" ng-click="gohouseedit()"></a>
+       <a ui-sref="inside.editProfile" id="houseDetails-button10" style="text-align:right;" class=" button button-dark  icon ion-edit editHouseDetail btn" ng-click="gohouseedit()"></a>
         <h1 id="homepage-heading5" style="color:#FFFFFF;" class=" homePageUser Header">{{ user.user.name }}</h1>
 
         <h3 id="homepage-heading5" style="color:#FFFFFF;" class=" homePageUser Header">Houses</h3>
@@ -24,8 +24,8 @@ userhome.html<ion-view title="Homepage" hide-nav-bar="true" id="page2" class=" "
                 <p id="homepage-markdown37" style="color:#424143;text-align:right;" class=" HomeHouseWeather">{{house.currentweather}}</p>
                 <p class="invisibletext">{{house.skycode}}</p>
             </div>
-            <a ui-sref="inside.details" id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-positive button-small icon ion-edit editHouseBtn inDivItem btn" ng-click="logout()"></a>
-            <a id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-dark button-small icon ion-view editHouseBtn inDivItem btn" ng-click="gowindows()"></a>
+            <a ui-sref="inside.details" id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-positive button-small icon ion-ios-redo-outline editHouseBtn inDivItem btn" ng-click="logout()"></a>
+            <a id="homepage-button9" style="text-align:right;border-radius:0px 0px 0px 0px;" class=" button button-small icon ion-view editHouseBtn inDivItem btn" ng-click="gowindows()"></a>
         </div>
     </ion-content>
 </ion-view>
