@@ -45,7 +45,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('inside.chat', {
     url: '/inside/chat',
-    templateUrl: 'templates/chat.html'
+    templateUrl: 'templates/showwindows.html'
   })
 
   ;

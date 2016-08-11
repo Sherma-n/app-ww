@@ -67,15 +67,13 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     socket.emit('getData', {id: UserFactory.user._id});
     socket.on('arefreshing', function (data) {
       $scope.house = data.houses;
-      console.log('$scope.user');
-      console.log($scope.user);
-      console.log('$scope.house');
-      console.log($scope.house);
-      console.log('$scope.windows');
-      console.log($scope.windows);
-      console.log('value to find');
-      console.log($scope.windows.name);
-      // updateallinfo();
+    });
+  };
+
+  $scope.refreshWindowData = function () {
+    socket.emit('getData', {id: UserFactory.user._id});
+    socket.on('arefreshing', function (data) {
+      $scope.house.windows = data.houses.windows;
     });
   };
 
@@ -87,6 +85,25 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
 
   socket.on('newestupdate', function () {
     $scope.refreshData();
+  })
+
+  socket.on('updatethewindows', function (data){
+    console.log($scope.house)
+    console.log(data)
+    $scope.house.windows = data;
+    socket.emit('getleatestwindows', {
+      houseid: $scope.house._id
+    });
+  });
+
+  socket.on('doingthewindows', function(data){
+      $scope.house.windows = data;
+      $scope.refreshWindowData();
+
+      setTimeout(function () {
+        $scope.refreshWindowData();
+      }, 1000);
+
   })
 
   $scope.savehouse = function (data) {
@@ -115,6 +132,7 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
         houseid: $scope.house._id
       })
     } else if ($scope.house.windows.windowname) {
+      console.log('gotta show this newwindow')
       console.log($scope.house.windows.windowname);
       socket.emit('creatingwindow', {
         newwindow: $scope.house.windows.windowname,
@@ -139,11 +157,14 @@ app.controller('InsideCtrl', ["$scope", "AuthService", "API_ENDPOINT", "$http", 
     })
   }
 
+  $scope.gowindows = function () {
+    $state.go('inside.chat');
+  }
+
   $scope.togglewindow = function (data) {
-    console.log($scope.house.windows.windowname);
-    io.emit('changewindowstate', {
-      // windowname: $scope.window.windowname,
-      // houseid : $scope.house._id
+    socket.emit('changewindowstate', {
+      windowname: data,
+      houseid : $scope.house._id
     });
   };
 

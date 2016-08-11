@@ -1,10 +1,9 @@
-<ion-view title="House Details" hide-nav-bar="true" id="page8" class=" pText inDivItem">
+<ion-view title="Show windows" hide-nav-bar="true" id="page8" class=" pText inDivItem">
     <ion-content padding="true" style="background: url(img/weatherback.png) no-repeat center;background-size:cover;" class="manual-ios-statusbar-padding">
-        <h2 id="houseDetails-heading11" style="color:#FFFFFF;" class="PageTitle">House Details</h2>
-        <a ui-sref="inside.editHouse" id="houseDetails-button10" style="text-align:right;" class=" button button-dark  icon ion-edit editHouseDetail btn" ng-click="gohouseedit()"></a>
+
         <!-- House Card  -->
         <div class="list card selected" id="houseDetails-card238" ng-class="{'goodweather': house.skycode > 22, 'badweather': house.skycode <= 22 }">
-            <div class="list card lefthouse inDivItem" id="houseDetails-card236">
+     <!--        <div class="list card lefthouse inDivItem" id="houseDetails-card236">
                 <h3 id="houseDetails-heading12" style="color:#000000;" class=" homeHouseName subHeader inDivItem">{{house.name}}</h3>
                 <div class="item item-body homeUser inDivItem" id="houseDetails-list-item-container28">
                     <ion-list id="houseDetails-list5" class=" " ng-repeat="user in userlist">
@@ -12,8 +11,8 @@
 
                     </ion-list>
                 </div>
-            </div>
-            <div class="list card manual-card-fullwidth righthouse inDivItem" id="houseDetails-card237">
+            </div> -->
+    <!--         <div class="list card manual-card-fullwidth righthouse inDivItem" id="houseDetails-card237">
                 <h3 id="houseDetails-heading13" style="color:#000000;" class=" HomeHouseCountry subHeader Country">{{house.country}}</h3>
                 <h2 id="houseDetails-markdown15" style="color:#000000;" class=" HomeHouseTemp">{{house.temperature + "°"}}</h2>
                 <div class="HomeHouseImg item item-image">
@@ -21,11 +20,11 @@
                 </div>
                 <p id="houseDetails-markdown16" style="color:#000000;" class=" HomeHouseWeather">{{house.currentweather}}</p>
                 <p class="invisibletext">{{house.skycode}}</p>
-            </div>
+            </div> -->
         </div>
         <div class="list card windowDiv" id="houseDetails-card22">
-            <div class="item item-body homeWindowsContainer inDivItem" id="houseDetails-list-item-container37" ng-repeat="window in house.windows">
-                <div class="homeWindowImg inDivItem" ng-class="{'openwindow': window.windowstatus == true, 'closedwindow': window.windowstatus == false}" ng-click="togglewindow(window.windowname)">
+            <div class="item item-body homeWindowsContainer inDivItem" id="houseDetails-list-item-container37" ng-repeat="window in house.windows" ng-click="togglewindow(window.windowname)">
+                <div class="homeWindowImg inDivItem" ng-class="{'openwindow': window.windowstatus == true, 'closedwindow': window.windowstatus == false}">
                     <!-- <img src="" width="50px" height="50px" style="display: block; margin-left: auto; margin-right: auto;" ng-class="{'openwindow': window.windowstatus == 'true' , 'closedwindow': window.windowstatus == 'false'} "> -->
                 </div>
                 <h2 id="houseDetails-heading19" style="color:#FFFFFF;" class=" homeWindowHead pText inDivItem">{{window.windowname}}</h2>
